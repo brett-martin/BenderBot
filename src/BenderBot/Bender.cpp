@@ -11,13 +11,13 @@
 
 
 Bender::Bender() {
-    _antenna = new Led(13);
-    _button = new Button(19); 
     init();
 }
 
 void Bender::init() {
-    // Nothing yet
+    _antenna = new Led(13);
+    _button = new Button(19); 
+    _clock = new BenderTime();
 }
 
 bool Bender::buttonPushed(int b) {
@@ -41,7 +41,7 @@ void Bender::antennaOn(byte state) {
 }
 
 void Bender::showClock() {
-    //String t = _clock.getTime();
+    String t = _clock->getTime();
     Serial.println("Time is ");
-    //Serial.println(t);
+    Serial.println(t);
 }

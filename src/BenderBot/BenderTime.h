@@ -22,12 +22,10 @@
 class BenderTime {
 
 protected:
-
-    uint8_t i2c_addr; ///< Device I2C address
     
     char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     
-    RTC_DS3231 rtc;
+    RTC_DS3231 *_rtc;
 
 public:
   
@@ -38,9 +36,6 @@ public:
     String getTime(void);
 
     int getTemp(void);
-
-
-
 };
 
 
