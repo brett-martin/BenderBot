@@ -18,6 +18,7 @@ void Bender::init() {
     _antenna = new Led(13);
     _button = new Button(19); 
     _clock = new BenderTime();
+    _display = new BenderDisplay(4); //# segments, brightness etc pass in
 }
 
 bool Bender::buttonPushed(int b) {
@@ -44,4 +45,6 @@ void Bender::showClock() {
     String t = _clock->getTime();
     Serial.println("Time is ");
     Serial.println(t);
+    _display->clear();
+    _display->writeDisplay();
 }

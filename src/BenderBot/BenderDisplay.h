@@ -12,24 +12,32 @@
 
 #include "Arduino.h"
 #include <Wire.h>
+#include <Adafruit_GFX.h>
+ #include <SPI.h>
+ #include "Adafruit_LEDBackpack.h" // Creates warning messages?
 
 #define ANTENNA_LED 10
 
 class BenderDisplay {
 public:
   
-    BenderDisplay(void);
+    BenderDisplay(int numSegments);
+
+    void init();
 
     void setBrightness(uint8_t b);
 
-    void writeDisplay(void);
+    void writeDisplay();
 
-    void clear(void);
+    void clear();
 
 protected:
     uint8_t i2c_addr; ///< Device I2C address
+
 private:
-    // Array[uint8_t] segments;
+     Adafruit_8x16matrix** _segments;
+     int _numSegments = 1;
+     byte _segmentAddresses[4] = {0x70, 0x71, 0x72, 0x73};
 };
 
 

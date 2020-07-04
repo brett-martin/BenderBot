@@ -18,6 +18,7 @@
 #include "Led.h"
 #include "Button.h"
 #include "BenderTime.h"
+#include "BenderDisplay.h"
 
 
 class Bender {
@@ -28,6 +29,8 @@ private:
     Button *_button;         // button input object
     
     BenderTime *_clock;      // Clock object
+
+    BenderDisplay *_display; // Display object
 
 public:
 

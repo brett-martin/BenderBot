@@ -27,14 +27,32 @@ void BenderDisplay::setBrightness(uint8_t b) {
   // Set Brightness
 }
 
-BenderDisplay::BenderDisplay(void) {}
-
-
-void BenderDisplay::writeDisplay(void) {
-  // Update display
+BenderDisplay::BenderDisplay(int numSegments) {
+  _numSegments = numSegments;
+  init();
 }
 
-void BenderDisplay::clear(void) {
-  // Clear
+void BenderDisplay::init() {
+  _segments = new Adafruit_8x16matrix*[_numSegments];
+  for (int i = 0; i < _numSegments; i++) {
+    Adafruit_8x16matrix *m = new Adafruit_8x16matrix();
+    _segments[i] = m;
+    _segments[i]->begin(_segmentAddresses[i]); 
+  }
+}
+
+void BenderDisplay::writeDisplay() {
+  for (int i = 0; i < _numSegments; i++) {
+    _segments[i]->drawRect(0,0, 8,16, LED_ON);
+    _segments[i]->fillRect(2,2, 4,12, LED_ON);
+    _segments[i]->writeDisplay();  // write the changes we just made to the display
+  }
+}
+
+void BenderDisplay::clear() {
+  for (int i = 0; i < _numSegments; i++) {
+    _segments[i]->clear();
+    _segments[i]->writeDisplay();
+  }
 }
 
