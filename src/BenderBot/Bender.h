@@ -17,25 +17,29 @@
 
 #include "Led.h"
 #include "Button.h"
+//#include "BenderTime.h"
 
 
 class Bender {
 
 private:
-    Led _antenna;           // antenna Led object
+    Led *_antenna;           // antenna Led object
 
-    Button _button;         // button input object
+    Button *_button;         // button input object
     
+    //BenderTime _clock;      // Clock object
 
 public:
 
-    Bender(int antennaPin, int buttonPin); // Constructor including constructor vars for included classes
+    Bender(); // Constructor including constructor vars for included classes
 
     void init();            // Init
 
     bool buttonPushed(int b);     // Turn on the antenna when the button is pushed
 
     void antennaOn(byte state);
+
+    void showClock();
 };
 
 #endif

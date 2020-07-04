@@ -10,15 +10,16 @@
 
 #include "BenderBot/Bender.h"
 
-Bender bender(13,19);
+Bender *bender = new Bender();
 
 void setup() { 
   Serial.begin(115200);
 }
 
 void loop() {
-  if (bender.buttonPushed(1) == true) {
-    bender.antennaOn(true);
+  if (bender->buttonPushed(1) == true) {
+    bender->antennaOn(true);
     Serial.println("Antenna On");
+    //bender.showClock();
   }
 }

@@ -9,7 +9,10 @@
 
 #include "Bender.h"
 
-Bender::Bender(int antennaPin, int buttonPin) : _antenna (antennaPin), _button (buttonPin)  { 
+
+Bender::Bender() {
+    _antenna = new Led(13);
+    _button = new Button(19); 
     init();
 }
 
@@ -21,7 +24,7 @@ bool Bender::buttonPushed(int b) {
     switch (b)
     {
     case 1:
-        return _button.wasPressed();
+        return _button->wasPressed();
         break;
     
     default:
@@ -32,7 +35,13 @@ bool Bender::buttonPushed(int b) {
 
 void Bender::antennaOn(byte state) {
     if (state)
-         _antenna.on(1000);
+         _antenna->on(1000);
     else
-         _antenna.off();
+         _antenna->off();
+}
+
+void Bender::showClock() {
+    //String t = _clock.getTime();
+    Serial.println("Time is ");
+    //Serial.println(t);
 }

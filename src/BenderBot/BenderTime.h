@@ -1,33 +1,46 @@
-/*!
- * @file BenderTime.h
- * 
- * This class handles displaying images and animations on 4x 16x8 matrix displays
- * These displays use I2C to communicate, 2 pins are required to
- * interface. There are multiple selectable I2C addresses. For backpacks
- * with 2 Address Select pins: 0x70, 0x71, 0x72, 0x73.
- */
+/*******************************************************************
+    BenderTime.h
+    Brett Martin
+    7/1/2020
+    
+    Wrapping class for RTClib to manage setting and getting time
+    via a DS3231 RTC connected via I2C and Wire lib
+********************************************************************/
 
 #ifndef BenderTime_h
 #define BenderTime_h
 
-#include "Arduino.h"
+#if (ARDUINO >= 100)
+    #include "Arduino.h"
+#else
+    #include "Wprogram.h"
+#endif
+
 #include "RTClib.h"
 
 
 class BenderTime {
+
+protected:
+
+    uint8_t i2c_addr; ///< Device I2C address
+    
+    char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    
+    RTC_DS3231 rtc;
+
 public:
   
     BenderTime();
+
+    void init();
 
     String getTime(void);
 
     int getTemp(void);
 
 
-protected:
-    uint8_t i2c_addr; ///< Device I2C address
-    char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    RTC_DS3231 rtc;
+
 };
 
 

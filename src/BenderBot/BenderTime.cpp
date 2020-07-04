@@ -1,13 +1,25 @@
-// Date and time functions using a DS3231 RTC connected via I2C and Wire lib
-#include "RTClib.h"
+/*******************************************************************
+    BenderTime.cpp
+    Brett Martin
+    7/1/2020
+    
+    Wrapping class for RTClib to manage setting and getting time
+    via a DS3231 RTC connected via I2C and Wire lib
+********************************************************************/
+
+//#include "RTClib.h"
 #include "BenderTime.h"
 
 BenderTime::BenderTime() {
-  Serial.begin(57600);
+  init(); 
+}
 
-#ifndef ESP8266
-  while (!Serial); // wait for serial port to connect. Needed for native USB
-#endif
+void BenderTime::init() {
+  //Serial.begin(57600);
+
+  #ifndef ESP8266
+    while (!Serial); // wait for serial port to connect. Needed for native USB
+  #endif
 
   if (! rtc.begin()) {
     Serial.println("Couldn't find RTC");
