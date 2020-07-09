@@ -1,16 +1,24 @@
-/*!
- * @file BenderDisplay.h
- * 
- * This class handles displaying images and animations on 4x 16x8 matrix displays
- * These displays use I2C to communicate, 2 pins are required to
- * interface. There are multiple selectable I2C addresses. For backpacks
- * with 2 Address Select pins: 0x70, 0x71, 0x72, 0x73.
- */
+/*******************************************************************
+    BenderSound.h
+    Brett Martin
+    7/1/2020
+    
+    This class handles UART communication between the main board and
+    the Adafruit Audio FX sound board
+    This uses serial1 of the M4 express (PB16/PB17), (D0,D1) as TX/RX 
+    and D5 (PA16) as the reset trigger. Other serial ports can be used
+    but D0/D1 are the fastest on the M4.
+********************************************************************/
 
 #ifndef BenderSound_h
 #define BenderSound_h
 
-#include "Arduino.h"
+#if (ARDUINO >= 100)
+    #include "Arduino.h"
+#else
+    #include "Wprogram.h"
+#endif
+
 #include <Wire.h>
 #include "Adafruit_Soundboard.h"
 
@@ -23,23 +31,38 @@
 class BenderSound {
 
 public:
-    BenderSound(void);
-    void setVol(int newVol);
-    int volUp(void);
-    int volDown(void);
-    int getLength(void);
-    void playSound(void);
+    BenderSound();
 
-protected:
-    uint8_t i2c_addr; ///< Device I2C address
-    Adafruit_Soundboard sfx = Adafruit_Soundboard(&Serial1, NULL, SFX_RST);
-    const int MIN_SOUND = 0;
-    const int MAX_SOUND = 11;
-    int currentVol = 204;
-    int nextSound = 0;
+    void init();
+
+    void setVol(int newVol);    // Set a new volume between min and max volume
+
+    int volUp();                // Try to turn the volume Up and then return the current volume
+    
+    int volDown();              // Try to turn the volume Down and then return the current volume
+    
+    int getLength();            // Get the size in bytes and return estimated seconds the track is long so we can use for a delay
+    
+    void playSound(int sound);
+
+    void playNext();
+
 
 private:
-    // Array[uint8_t] segments;
+
+    Adafruit_Soundboard *_sfx;  // Soundboard object
+    
+    const int _startSound = 0;  // Start at sound # 0
+    
+    const int _endSound = 11;   // Total number of songs loaded on the board
+    
+    int _nextSound = 0;         // Holds "current" song when looping through songs
+
+    const int _minVol = 0;      // Min volume of the board is 0
+
+    const int _maxVol = 204;    // Max volume of the board is 204
+
+    int _currentVol = 204;      // Board always starts at max volume and volume must be set
 };
 
 

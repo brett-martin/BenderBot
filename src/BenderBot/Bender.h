@@ -19,18 +19,20 @@
 #include "Button.h"
 #include "BenderTime.h"
 #include "BenderDisplay.h"
-
+#include "BenderSound.h"
 
 class Bender {
 
 private:
-    Led *_antenna;           // antenna Led object
+    Led *_antenna;              // antenna Led object
 
-    Button *_button;         // button input object
+    Button *_button;            // button input object
     
-    BenderTime *_clock;      // Clock object
+    BenderTime *_clock;         // Clock object
 
-    BenderDisplay *_display; // Display object
+    BenderDisplay *_display;    // Display object
+
+    BenderSound *_mouth;       // Sound object
 
 public:
 
@@ -38,11 +40,13 @@ public:
 
     void init();                // Init
 
-    bool buttonPushed(int b);   // Turn on the antenna when the button is pushed
+    bool buttonPushed(int b);   // Checks to see if the button was pushed recently
 
-    void antennaOn(byte state);
+    void antennaOn(byte state); // Turn on the antenna
 
-    void showClock();
+    void showClock();           // Display the time on the LED screen
+
+    void say(int sound);        // Play a sound file # x
 };
 
 #endif

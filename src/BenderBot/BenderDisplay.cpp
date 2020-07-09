@@ -1,11 +1,13 @@
-/*!
- * @file BenderDisplay.cpp
- * 
- * This class handles displaying images and animations on 4x 16x8 matrix displays
- * These displays use I2C to communicate, 2 pins are required to
- * interface. There are multiple selectable I2C addresses. For backpacks
- * with 2 Address Select pins: 0x70, 0x71, 0x72, 0x73.
- */
+/*******************************************************************
+    BenderDisplay.cpp
+    Brett Martin
+    7/1/2020
+    
+    This class handles displaying images and animations on 4x 16x8 matrix displays
+    These displays use I2C to communicate, 2 pins are required to
+    interface. There are multiple selectable I2C addresses. For backpacks
+    with 2 Address Select pins: 0x70, 0x71, 0x72, 0x73.
+********************************************************************/
 
 #include "BenderDisplay.h"
 
@@ -23,10 +25,6 @@
 #endif
 
 
-void BenderDisplay::setBrightness(uint8_t b) {
-  // Set Brightness
-}
-
 BenderDisplay::BenderDisplay(int numSegments) {
   _numSegments = numSegments;
   init();
@@ -39,6 +37,10 @@ void BenderDisplay::init() {
     _segments[i] = m;
     _segments[i]->begin(_segmentAddresses[i]); 
   }
+}
+
+void BenderDisplay::setBrightness(uint8_t b) {
+  // TODO: Set Brightness
 }
 
 void BenderDisplay::writeDisplay() {

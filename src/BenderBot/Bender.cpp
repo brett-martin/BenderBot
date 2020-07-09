@@ -19,6 +19,7 @@ void Bender::init() {
     _button = new Button(19); 
     _clock = new BenderTime();
     _display = new BenderDisplay(4); //# segments, brightness etc pass in
+    _mouth = new BenderSound();
 }
 
 bool Bender::buttonPushed(int b) {
@@ -47,4 +48,8 @@ void Bender::showClock() {
     Serial.println(t);
     _display->clear();
     _display->writeDisplay();
+}
+
+void Bender::say(int sound) {
+    _mouth->playSound(sound);
 }
