@@ -22,6 +22,6 @@ void loop() {
     bender->antennaOn(true);
     Serial.println("Antenna On");
     bender->showClock();
-    bender->say(3);
+    bender->say(8);
   }
 }

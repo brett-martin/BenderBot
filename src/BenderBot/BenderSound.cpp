@@ -14,24 +14,24 @@
 #include "BenderSound.h"
 
 BenderSound::BenderSound() {
-  init();
+ init();
 }
 
 void BenderSound::init() {
   Serial.println("Connecting to Adafruit Sound Board!");
-  
+
+  _sfx = new Adafruit_Soundboard(&Serial1, NULL, SFX_RST);
+
   Serial1.begin(9600);
 
-  Adafruit_Soundboard _sfx = Adafruit_Soundboard(&Serial1, NULL, SFX_RST);
-
-  if (!_sfx.reset()) {
+  if (!_sfx->reset()) {
     Serial.println("Reset soundboard failed");
     while (1);
   }
   Serial.println("SFX board ready");
 
- // setVol(150);      // Reduce volume recursivly first
-  _sfx.listFiles();  // Must call this for fileSize to work lol
+  setVol(150);        // Reduce volume recursivly first
+  _sfx->listFiles();  // Must call this for fileSize to work lol
 }
 
 void BenderSound::playSound(int sound) {
