@@ -22,29 +22,43 @@
 #include <Adafruit_GFX.h>
 #include <SPI.h>
 #include "Adafruit_LEDBackpack.h" // Generates warning messages, why?
+#include "BenderExpressions.h"
+#include "Expressions/Numbers.h"
+#include "Led.h"
 
-#define ANTENNA_LED 10
+const int COLON_LED = 10;
 
 class BenderDisplay {
 public:
   
-    BenderDisplay(int numSegments);
+    BenderDisplay(int numSegments, uint8_t brightness); // Setup the display
 
-    void init();
+    void init();                                        // Init
 
-    void setBrightness(uint8_t b);
+    void setBrightness(uint8_t b);                      // Set brightness 0-15
 
-    void writeDisplay();
+    void writeDisplay();                                // Re-draw the display
 
-    void clear();
+    void clear();                                       // Clear the display
 
-protected:
-    uint8_t i2c_addr; ///< Device I2C address
+    void showExpression();                              // Show an expression spanning all segments
+
+    void showNumber(int number, int segment);           // Show a single digit on a single segment
+
+    void colonOn(bool state);                           // Turns on the colon for displaying time
 
 private:
-     Adafruit_8x16matrix** _segments;
-     int _numSegments = 1;
-     byte _segmentAddresses[4] = {0x70, 0x71, 0x72, 0x73};
+     Adafruit_8x16matrix** _segments;                   // Pointer to array of 8x16 segments
+
+     int _numSegments = 1;                              // Holds number of segments in display
+
+     uint8_t _brightness = 2;                           // Holds current brightness
+
+     byte _segmentAddresses[4] = {0x70, 0x71, 0x72, 0x73}; // Addresses for possible segments
+
+     BenderExpressions *_expressions;                   // Stores all possible expressions
+
+     Led *_colon;                                       // Controls the colon LEDs
 };
 
 

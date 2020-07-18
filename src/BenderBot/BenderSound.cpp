@@ -35,8 +35,8 @@ void BenderSound::init() {
 }
 
 void BenderSound::playSound(int sound) {
-  Serial.println("Playing Sound");
-  Serial.println(sound);
+  // Serial.println("Playing Sound");
+  // Serial.println(sound);
   
   if (_sfx->playTrack(sound)) {
     int trackLength = getLength();
@@ -61,7 +61,7 @@ void BenderSound::setVol(int newVol) {
   Serial.println("Setting Volume");
 
   if (newVol == _currentVol){
-    Serial.println("Volume Set");
+    // Serial.println("Volume Set");
     return;
   }
   
@@ -71,35 +71,35 @@ void BenderSound::setVol(int newVol) {
   }
 
   if (newVol < _currentVol) {
-    Serial.println("Go Up");
+    // Serial.println("Go Up");
     _currentVol = volDown();
     setVol(newVol);
   } else if (newVol > _currentVol) {
-    Serial.println("Go Down");
+    // Serial.println("Go Down");
     _currentVol = volUp();
     setVol(newVol);
   }
 }
 
 int BenderSound::volUp() {
-      Serial.println("Vol up...");
+      // Serial.println("Vol up...");
       uint16_t v;
       if (! (v = _sfx->volUp()) ) {
         Serial.println("Failed to adjust");
       } else {
-        Serial.print("Volume: "); Serial.println(v);
+        // Serial.print("Volume: "); Serial.println(v);
       }
       return(v);
 }
 
 int BenderSound::volDown() {
-      Serial.println("Vol down...");
+      // Serial.println("Vol down...");
       uint16_t v;
       if (! (v=_sfx->volDown()) ) {
         Serial.println("Failed to adjust");
       } else { 
-        Serial.print("Volume: "); 
-        Serial.println(v);
+        // Serial.print("Volume: "); 
+        // Serial.println(v);
       }
       return(v);
 }
@@ -109,12 +109,8 @@ int BenderSound::getLength(void) {
       uint32_t remain, total;
       if (! _sfx->trackSize(&remain, &total) ) 
         Serial.println("Failed to query");
-      //Serial.print(remain); Serial.print("/"); Serial.println(total); 
-      //int r = total/scaleFactor;
-      //Serial.println("Estimated Seconds total");
-      //Serial.print(r);
-      int r2 = remain/scaleFactor;
+      int trackLength = remain/scaleFactor;
       //Serial.println("Estimated Seconds remain");
       //Serial.print(r2);
-      return max(r2 * 1000, 1000);
+      return max(trackLength * 1000, 1000);
 }

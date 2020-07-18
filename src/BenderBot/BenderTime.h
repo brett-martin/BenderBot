@@ -18,12 +18,20 @@
 
 #include "RTClib.h"
 
+// Struct to hold time in individual charactors 
+struct TimeArray { 
+    int h1;
+    int h2;
+    int m1;
+    int m2;
+}; 
+
 
 class BenderTime {
 
 protected:
     
-    char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+    enum daysOfTheWeek {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday} day;
     
     RTC_DS3231 *_rtc;
 
@@ -33,9 +41,11 @@ public:
 
     void init();
 
-    String getTime(void);
+    TimeArray getTimeArray();
 
-    int getTemp(void);
+    int getTime();
+
+    int getTemp();
 };
 
 

@@ -26,13 +26,21 @@ class Bender {
 private:
     Led *_antenna;              // antenna Led object
 
-    Button *_button;            // button input object
+    Button *_buttonRed;         // button input object
+
+    Button *_buttonYellow;      // button input object
+
+    Button *_buttonGreen;       // button input object
+
+    Button *_buttonBlue;        // button input object
+
+    Button *_buttonWhite;       // button input object
     
     BenderTime *_clock;         // Clock object
 
     BenderDisplay *_display;    // Display object
 
-    BenderSound *_mouth;       // Sound object
+    BenderSound *_mouth;        // Sound object
 
 public:
 
@@ -47,6 +55,14 @@ public:
     void showClock();           // Display the time on the LED screen
 
     void say(int sound);        // Play a sound file # x
-};
 
+    void displayOn(bool state); // Turn display on or off
+
+    void showExpression(String expression);
+    
+    void playAnimation(String animation);
+
+    int getTime();
+
+};
 #endif

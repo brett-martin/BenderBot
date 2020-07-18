@@ -15,7 +15,7 @@ Button::Button(byte pin) {
 }
     
 void Button::init() {
-    pinMode(_pin, INPUT_PULLDOWN); // INPUT_PULLDOWN used for boards with built in pulldown resistors
+    pinMode(_pin, INPUT_PULLUP); // INPUT_PULLDOWN/UP used for boards with built in pulldown resistors
     update();
 }
     
@@ -39,8 +39,8 @@ byte Button::getState() {
 }
 
 bool Button::isPressed() {
-    if (getState() == HIGH) {
-        Serial.println("Button Pushed");
+    if (getState() == LOW) {
+        // Serial.println("Button Pushed");
         return true;
     }
     return false;
@@ -48,14 +48,13 @@ bool Button::isPressed() {
 
 bool Button::wasPressed() {
     byte currentState = getState();
-    if (currentState == HIGH && _pressedOnce == false) {
+    if (currentState == LOW && _pressedOnce == false) {
         // Serial.println("Button Pushed once");
         _pressedOnce = true;
         return true;
-    } else if (currentState == LOW && _pressedOnce == true) {
+    } else if (currentState == HIGH && _pressedOnce == true) {
         _pressedOnce = false;
         // Serial.println("Button Reset");
     }
-
     return false;
 }

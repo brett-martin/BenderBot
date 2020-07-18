@@ -25,29 +25,35 @@
 #endif
 
 
-BenderDisplay::BenderDisplay(int numSegments) {
+BenderDisplay::BenderDisplay(int numSegments, uint8_t brightness) {
   _numSegments = numSegments;
+  _brightness = brightness;
   init();
 }
 
 void BenderDisplay::init() {
   _segments = new Adafruit_8x16matrix*[_numSegments];
+  _expressions = new BenderExpressions();
+  _colon = new Led(COLON_LED);
+
   for (int i = 0; i < _numSegments; i++) {
     Adafruit_8x16matrix *m = new Adafruit_8x16matrix();
     _segments[i] = m;
     _segments[i]->begin(_segmentAddresses[i]); 
   }
+
+  setBrightness(_brightness);
 }
 
-void BenderDisplay::setBrightness(uint8_t b) {
-  // TODO: Set Brightness
+void BenderDisplay::setBrightness(uint8_t value) { // 0-15
+  for (int i = 0; i < _numSegments; i++) {
+    _segments[i]->setBrightness(value);
+  }
 }
 
 void BenderDisplay::writeDisplay() {
   for (int i = 0; i < _numSegments; i++) {
-    _segments[i]->drawRect(0,0, 8,16, LED_ON);
-    _segments[i]->fillRect(2,2, 4,12, LED_ON);
-    _segments[i]->writeDisplay();  // write the changes we just made to the display
+    _segments[i]->writeDisplay();
   }
 }
 
@@ -55,6 +61,28 @@ void BenderDisplay::clear() {
   for (int i = 0; i < _numSegments; i++) {
     _segments[i]->clear();
     _segments[i]->writeDisplay();
+  }
+}
+
+void BenderDisplay::showExpression() {
+    colonOn(false);
+    _segments[0]->drawBitmap(0, 0, ExpAngry[0], 8, 16, LED_ON);
+    _segments[1]->drawBitmap(0, 0, ExpAngry[1], 8, 16, LED_ON);
+    _segments[2]->drawBitmap(0, 0, ExpAngry[2], 8, 16, LED_ON);
+    _segments[3]->drawBitmap(0, 0, ExpAngry[3], 8, 16, LED_ON);
+  
+    writeDisplay();
+}
+
+void BenderDisplay::showNumber(int number, int segment) {
+ _segments[segment]->drawBitmap(0, 0, Numbers[number], 8, 16, LED_ON);
+}
+
+void BenderDisplay::colonOn(bool state) {
+  if (state) {
+    _colon->on();
+  } else {
+    _colon->off();
   }
 }
 
