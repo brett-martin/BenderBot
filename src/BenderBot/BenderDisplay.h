@@ -22,8 +22,8 @@
 #include <Adafruit_GFX.h>
 #include <SPI.h>
 #include "Adafruit_LEDBackpack.h" // Generates warning messages, why?
-#include "BenderExpressions.h"
-#include "Expressions/Numbers.h"
+#include "BenderAnimations.h"
+#include "Numbers.h"
 #include "Led.h"
 
 const int COLON_LED = 10;
@@ -41,7 +41,7 @@ public:
 
     void clear();                                       // Clear the display
 
-    void showExpression();                              // Show an expression spanning all segments
+    void showExpression(ExpressionNames name);                              // Show an expression spanning all segments
 
     void showNumber(int number, int segment);           // Show a single digit on a single segment
 
@@ -55,8 +55,6 @@ private:
      uint8_t _brightness = 2;                           // Holds current brightness
 
      byte _segmentAddresses[4] = {0x70, 0x71, 0x72, 0x73}; // Addresses for possible segments
-
-     BenderExpressions *_expressions;                   // Stores all possible expressions
 
      Led *_colon;                                       // Controls the colon LEDs
 };

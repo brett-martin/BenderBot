@@ -58,11 +58,11 @@ public:
 
     void displayOn(bool state); // Turn display on or off
 
-    void showExpression(String expression);
+    void showExpression(ExpressionNames expression); // Shows an expression on the display
     
-    void playAnimation(String animation);
+    void playAnimation(String animation);   // Plays a series of expressions with audio to create an animation
 
-    int getTime();
+    int getTime();              // Gets the current time
 
 };
 #endif

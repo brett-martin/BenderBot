@@ -18,7 +18,7 @@
 
 #include "RTClib.h"
 
-// Struct to hold time in individual charactors 
+// Struct to hold time in individual time digits by name (h1 h2 : m1 m2)
 struct TimeArray { 
     int h1;
     int h2;
@@ -33,19 +33,21 @@ protected:
     
     enum daysOfTheWeek {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday} day;
     
-    RTC_DS3231 *_rtc;
+    RTC_DS3231 *_rtc;           // DS3231 Real Time Clock object
 
 public:
   
-    BenderTime();
+    BenderTime();               // Constructor
 
-    void init();
+    void init();                // Init
 
-    TimeArray getTimeArray();
+    TimeArray getTimeArray();   // Returns the current time in an array of digits
 
-    int getTime();
+    int getTime();              // Returns the current time in seconds
 
-    int getTemp();
+    int getTemp();              // Returns the current temp
+
+    void setTime();
 };
 
 

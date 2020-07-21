@@ -33,7 +33,6 @@ BenderDisplay::BenderDisplay(int numSegments, uint8_t brightness) {
 
 void BenderDisplay::init() {
   _segments = new Adafruit_8x16matrix*[_numSegments];
-  _expressions = new BenderExpressions();
   _colon = new Led(COLON_LED);
 
   for (int i = 0; i < _numSegments; i++) {
@@ -64,12 +63,12 @@ void BenderDisplay::clear() {
   }
 }
 
-void BenderDisplay::showExpression() {
+void BenderDisplay::showExpression(ExpressionNames name) {
     colonOn(false);
-    _segments[0]->drawBitmap(0, 0, ExpAngry[0], 8, 16, LED_ON);
-    _segments[1]->drawBitmap(0, 0, ExpAngry[1], 8, 16, LED_ON);
-    _segments[2]->drawBitmap(0, 0, ExpAngry[2], 8, 16, LED_ON);
-    _segments[3]->drawBitmap(0, 0, ExpAngry[3], 8, 16, LED_ON);
+    _segments[0]->drawBitmap(0, 0, Expressions[name][0], 8, 16, LED_ON);
+    _segments[1]->drawBitmap(0, 0, Expressions[name][1], 8, 16, LED_ON);
+    _segments[2]->drawBitmap(0, 0, Expressions[name][2], 8, 16, LED_ON);
+    _segments[3]->drawBitmap(0, 0, Expressions[name][3], 8, 16, LED_ON);
   
     writeDisplay();
 }

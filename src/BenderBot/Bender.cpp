@@ -77,13 +77,13 @@ void Bender::showClock() {
     _display->colonOn(true);
 }
 
-void Bender::showExpression(String expression) {
-    _display->showExpression();
+void Bender::showExpression(ExpressionNames expression) {
+    _display->showExpression(expression);
 }
 
 void Bender::playAnimation(String animation) {
     _display->clear();
-    _display->showExpression();
+    _display->showExpression(Angry);
     _mouth->playSound(8);
 }
 

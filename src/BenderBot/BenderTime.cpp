@@ -81,3 +81,7 @@ int BenderTime::getTime() {
 int BenderTime::getTemp() {
    return _rtc->getTemperature();
 }
+
+void BenderTime::setTime() {
+   // TODO: Set the time on the RTC
+}
