@@ -18,6 +18,7 @@
 
 #include "BenderExpressions.h"
 
+
 enum AnimationNames {AngryAni};
 
 struct AnimationStep {
@@ -25,20 +26,19 @@ struct AnimationStep {
     int waitTime;
 };
 
-// template <int N>
 struct Animation {
     AnimationStep steps[10];
     int audio;
 };
 
-// Animation AniAngry = {
-//     {{Neutral,200},
-//     {SemiAngry,200},
-//     {Angry,200},
-//     {VeryAngry,200},
-//     {Angry,200},
-//     {SemiAngry,200},
-//     {Neutral,200}
-//     }, 3};
+static const Animation AniAngry = {
+    {{Neutral,200},
+    {SemiAngry,200},
+    {Angry,200},
+    {VeryAngry,200},
+    {Angry,200},
+    {SemiAngry,200},
+    {Neutral,200}
+    }, 3};
 
 #endif // BenderAnimations_h
