@@ -24,19 +24,20 @@ void loop() {
 
   if (bender->buttonPushed(1) == true) {
     bender->antennaOn(true);
-    bender->playAnimation("Angry");
+    // bender->playAnimation("Angry");
   } else if ( _newTime > _currentTime + 20) {
-    Serial.println("Updating Clock");
+    // Serial.println("Updating Clock");
     _currentTime = _newTime;
     bender->showClock();
   }
 
   if (bender->buttonPushed(2) == true) {
-    bender->say(3);
+    bender->playAnimation(AngryAni);
+    // bender->say(3);
   }
 
   if (bender->buttonPushed(3) == true) {
-    Serial.println("Updating Clock");
+    // Serial.println("Updating Clock");
     bender->showClock();
   }
 

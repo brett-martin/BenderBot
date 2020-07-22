@@ -81,10 +81,12 @@ void Bender::showExpression(ExpressionNames expression) {
     _display->showExpression(expression);
 }
 
-void Bender::playAnimation(String animation) {
-    _display->clear();
-    _display->showExpression(Angry);
-    _mouth->playSound(8);
+void Bender::playAnimation(AnimationNames animation) {
+    _mouth->playSound(Animations[animation].audio);
+    for (AnimationFrame frame: Animations[animation].frames) {
+        _display->showExpression(frame.exp);
+        delay(frame.waitTime);
+    }
 }
 
 void Bender::say(int sound) {

@@ -60,7 +60,7 @@ public:
 
     void showExpression(ExpressionNames expression); // Shows an expression on the display
     
-    void playAnimation(String animation);   // Plays a series of expressions with audio to create an animation
+    void playAnimation(AnimationNames animation);   // Plays a series of expressions with audio to create an animation
 
     int getTime();              // Gets the current time
 

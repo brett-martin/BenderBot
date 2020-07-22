@@ -39,8 +39,9 @@ void BenderSound::playSound(int sound) {
   // Serial.println(sound);
   
   if (_sfx->playTrack(sound)) {
-    int trackLength = getLength();
-    delay(trackLength);
+    // int trackLength = getLength();
+    // delay(trackLength);
+    
   } else {
     Serial.println("Play Sound failed");
   }

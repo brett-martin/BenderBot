@@ -21,24 +21,28 @@
 
 enum AnimationNames {AngryAni};
 
-struct AnimationStep {
+struct AnimationFrame {
     ExpressionNames exp;
     int waitTime;
 };
 
 struct Animation {
-    AnimationStep steps[10];
+    AnimationFrame frames[10];
     int audio;
 };
 
 static const Animation AniAngry = {
-    {{Neutral,200},
-    {SemiAngry,200},
-    {Angry,200},
-    {VeryAngry,200},
-    {Angry,200},
-    {SemiAngry,200},
-    {Neutral,200}
+    {{Neutral,400},
+    {SemiAngry,600},
+    {Angry,600},
+    {VeryAngry,800},
+    {Angry,100},
+    {SemiAngry,100},
+    {Neutral,100}
     }, 3};
+
+static const Animation Animations[1] = { 
+    AniAngry
+};
 
 #endif // BenderAnimations_h

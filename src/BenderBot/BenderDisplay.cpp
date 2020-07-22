@@ -65,6 +65,7 @@ void BenderDisplay::clear() {
 
 void BenderDisplay::showExpression(ExpressionNames name) {
     colonOn(false);
+    clear();
     _segments[0]->drawBitmap(0, 0, Expressions[name][0], 8, 16, LED_ON);
     _segments[1]->drawBitmap(0, 0, Expressions[name][1], 8, 16, LED_ON);
     _segments[2]->drawBitmap(0, 0, Expressions[name][2], 8, 16, LED_ON);
