@@ -59,7 +59,6 @@ void BenderDisplay::writeDisplay() {
 void BenderDisplay::clear() {
   for (int i = 0; i < _numSegments; i++) {
     _segments[i]->clear();
-    _segments[i]->writeDisplay();
   }
 }
 
@@ -84,5 +83,12 @@ void BenderDisplay::colonOn(bool state) {
   } else {
     _colon->off();
   }
+}
+
+void BenderDisplay::blinkColon() {
+  _colon->on();
+  delay(500);
+  _colon->off();
+  delay(500);
 }
 

@@ -22,7 +22,7 @@ void Bender::init() {
     _buttonBlue = new Button(16); 
     _buttonWhite = new Button(15); 
     _clock = new BenderTime();
-    _display = new BenderDisplay(4,5); //# segments, brightness etc pass in
+    _display = new BenderDisplay(4,1); //# segments, brightness etc pass in
     _mouth = new BenderSound();
 }
 
@@ -59,22 +59,33 @@ void Bender::antennaOn(byte state) {
 }
 
 void Bender::showClock() {
-    struct TimeArray t = _clock->getTimeArray();
-    Serial.printf("Time is %d%d:%d%d",t.h1,t.h2,t.m1,t.m2);
+    int time = _clock->getTime();
 
     _display->clear();
-    if (t.h1 == 0) {
+
+    // Convert clock int eg (1234) to single digits 1,2,3,4
+    unsigned m2 = (time / 1U) % 10;
+    unsigned m1 = (time / 10U) % 10;
+    unsigned h2 = (time / 100U) % 10;
+    unsigned h1 = (time / 1000U) % 10;
+
+    // Serial.printf("time: %d%d:%d%d \n", h1, h2, m1, m2);
+  
+    if (h1 == 0) {
         _display->showNumber(10,0);
     }
     else {
-        _display->showNumber(t.h1,0);
+        _display->showNumber(h1,0);
     }
-    _display->showNumber(t.h2,1);
-    _display->showNumber(t.m1,2);
-    _display->showNumber(t.m2,3);
+    _display->showNumber(h2,1);
+    _display->showNumber(m1,2);
+    _display->showNumber(m2,3);
 
     _display->writeDisplay();
-    _display->colonOn(true);
+}
+
+void Bender::blinkColon () {
+    _display->blinkColon();
 }
 
 void Bender::showExpression(ExpressionNames expression) {

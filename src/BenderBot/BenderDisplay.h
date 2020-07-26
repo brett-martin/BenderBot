@@ -26,7 +26,7 @@
 #include "Numbers.h"
 #include "Led.h"
 
-const int COLON_LED = 10;
+const int COLON_LED = 11;
 
 class BenderDisplay {
 public:
@@ -46,6 +46,8 @@ public:
     void showNumber(int number, int segment);           // Show a single digit on a single segment
 
     void colonOn(bool state);                           // Turns on the colon for displaying time
+
+    void blinkColon();
 
 private:
      Adafruit_8x16matrix** _segments;                   // Pointer to array of 8x16 segments

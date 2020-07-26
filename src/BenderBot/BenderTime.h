@@ -18,15 +18,6 @@
 
 #include "RTClib.h"
 
-// Struct to hold time in individual time digits by name (h1 h2 : m1 m2)
-struct TimeArray { 
-    int h1;
-    int h2;
-    int m1;
-    int m2;
-}; 
-
-
 class BenderTime {
 
 protected:
@@ -35,19 +26,25 @@ protected:
     
     RTC_DS3231 *_rtc;           // DS3231 Real Time Clock object
 
+    int _ticks = 0;
+
+    int _previousTick = 0;
+
 public:
   
     BenderTime();               // Constructor
 
     void init();                // Init
 
-    TimeArray getTimeArray();   // Returns the current time in an array of digits
+    int getTime();   // Returns the current time in an array of digits
 
-    int getTime();              // Returns the current time in seconds
+    int getSeconds();              // Returns the current time in seconds
 
     int getTemp();              // Returns the current temp
 
     void setTime();
+
+    void systemTick();           // Counts seconds for clock
 };
 
 

@@ -54,6 +54,8 @@ public:
 
     void showClock();           // Display the time on the LED screen
 
+    void blinkColon();          // Blinks the colon on then off 1 time
+
     void say(int sound);        // Play a sound file # x
 
     void displayOn(bool state); // Turn display on or off

@@ -9,6 +9,7 @@
 
 #include "RTClib.h"
 #include "BenderTime.h"
+#include <time.h>
 
 BenderTime::BenderTime() {
   init(); 
@@ -34,46 +35,33 @@ void BenderTime::init() {
     // January 21, 2014 at 3am you would call:
     // _rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));
   }
-}
-
-TimeArray BenderTime::getTimeArray() {
-    // Get the time
-    DateTime now = _rtc->now();
-    int hours = now.hour();
-    int minutes = now.minute();
-    // Serial.printf("%d:%d",hours,minutes);
-
-    // Convert the time to an array of ints[4] [h1,h2,m1,m2]
-    struct TimeArray time;
-    time.h1 = 0;
-    time.h2 = 0;
-    time.m1 = 0;
-    time.m2 = 0;
-
-    int digitsHr = 0;
-    int digitsMin = 0;
-
-    if (hours > 12) {
-      hours -= 12;
-      digitsHr = (int)log10(hours); 
-      if (digitsHr == 1 ) {
-        time.h1 = (int)(hours / pow(10, digitsHr));
-      } 
-    }
-    time.h2 = hours % 10;     
-    
-    digitsMin = (int)log10(minutes); 
-    if (digitsMin == 1 ) {
-      time.m1 = (int)(minutes / pow(10, digitsMin)); 
-    }
-    time.m2 = minutes % 10;
-
-    // Serial.printf("Sending %d %d %d %d", time.h1,time.h2,time.m1,time.m2);
-
-    return time;
+  _rtc->writeSqwPinMode(DS3231_SquareWave1Hz); // Tell RTC to output a 1hz pulse from it's output so we can use it to update the time ever second
 }
 
 int BenderTime::getTime() {
+  // Get the time
+  DateTime now = _rtc->now();
+  int hours = now.hour();
+  int minutes = now.minute();
+  int time = hours*100 + minutes;
+
+  // Serial.printf("%d:%d",hours,minutes);
+  // Serial.print(time);
+  // TODO: add 12/24 hr check here
+  // convert 24hr rtc to 12hr time
+  if (hours > 12) {
+  time -= 1200;
+  }
+
+  // Convert Midnight to 1200
+  if (hours == 0) {
+    time += 1200;
+  }
+
+  return time;
+}
+
+int BenderTime::getSeconds() {
   DateTime now = _rtc->now();
   return now.secondstime();
 }
